@@ -11,17 +11,52 @@ $password = "";
 
 $pdo = new PDO($dsn, $user, $password);
 
-/*
+class User {
+    private $id;
+    private $name;
+    private $email;
+    private $password;
+
+    function __construct($id_IN, $name_IN, $email_IN, $password_IN) {
+        $this->id = $id_IN;
+        $this->name = $name_IN;
+        $this->email = $email_IN;
+        $this->password = $password_IN;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+    function getName() {
+        return $this->name;
+    }
+    function getEmail() {
+        return $this->email;
+    }
+    function getPassword() {
+        return $this->password;
+    }
+
+    function getAll() {
+        return array($this->id, $this->name, $this->email, $this->password);
+    }
+}
+
+$users = []; 
 echo "<h2>Users!</h2>";
 $stm = $pdo->query("SELECT id, name, email, password FROM users");
-//print_r($stm->fetch());
 
 
 while ($row = $stm->fetch()) {
-    ?>
-        <a href="editUser.php?id=<?=$row['id']?>"><?=$row['id']?> <?=$row['name']?> <?=$row['email']?> <?=$row['password']?></a><br />
-    <?php
-}   */
+$user = new User($row['id'], $row['name'], $row['email'], $row['password']);
+   array_push($users, $user);
+   
+    echo '<a href="editUser.php?id='. $user->getId() .'">'. $user->getId() .' '. $user->getName() . ' ' . $user->getEmail() . ' ' . $user->getPassword() .'</a><br />';
+
+}   
+echo "<pre>";
+print_r($users);
+echo "</pre>";
 
 echo "<h2>Sign up!</h2>";
 
