@@ -5,11 +5,8 @@
 <body>
 <?php
 
-$dsn = "mysql:host=localhost;dbname=community";
-$user = "root";
-$password = "";
+include("database.php");
 
-$pdo = new PDO($dsn, $user, $password);
 
 class User {
     private $id;

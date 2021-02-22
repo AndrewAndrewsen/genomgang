@@ -2,11 +2,8 @@
     $username = $_POST['username'];
     $userPassword = $_POST['password'];
 
-    $dsn = "mysql:host=localhost;dbname=community";
-    $user = "root";
-    $password = "";
-    
-    $pdo = new PDO($dsn, $user, $password);
+    include("database.php");
+
 
 
     $salt = "asdkmpäöl8234-23439*¨¨^?#=)€++98";
