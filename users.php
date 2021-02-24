@@ -71,6 +71,11 @@ echo "<h2>Sign up!</h2>";
     if(isset($_SESSION['username']) && isset($_SESSION['password'])) {
 
         echo "<h1>Väkommen ". $_SESSION['username'] ."</h1>";
+        
+        if(isset($_SESSION['role']) && $_SESSION['role'] == "admin") {
+            echo "Du är inloggad som <b>Admin!</b><br />";
+        }
+        
         echo '<a href="logout.php">Logga ut!</a>';
         die();
     }
