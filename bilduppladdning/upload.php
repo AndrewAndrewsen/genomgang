@@ -30,6 +30,7 @@ if ($fileType != "png" && $fileType != "gif" && $fileType != "jpg" && $fileType 
 
 
 if (move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target_file)) {
+    
     include("db.php");
 
     $sql = "INSERT INTO images (path) VALUES('$target_file')";
