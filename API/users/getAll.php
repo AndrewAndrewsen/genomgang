@@ -3,8 +3,8 @@
     include("User.php");
 
     $user = new User($pdo);
-    $user->GetAllUsers();
-
+    $users = $user->GetAllUsers();
+    print_r(json_encode($users));
 
 
 ?>

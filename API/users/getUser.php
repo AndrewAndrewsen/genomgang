@@ -5,7 +5,9 @@
     $user = new User($pdo);
 
     if( !empty($_GET['id'])) { 
-        $user->GetUser($_GET['id']);
+        $userData = $user->GetUser($_GET['id']);
+        print_r(json_encode($userData));
+        
     } else {
         $error = new stdClass();
         $error->message = "No ID specified!";
@@ -13,7 +15,3 @@
         print_r(json_encode($error));
         die();
     }
-
-
-    echo "<br /><br /><h1>$user->username</h1>";
-

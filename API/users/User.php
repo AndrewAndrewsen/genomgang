@@ -10,7 +10,6 @@ class User {
     private $user_token;
     private $password;
     
-
     function __construct($db) {
         $this->database_connection = $db;
     }
@@ -67,7 +66,7 @@ class User {
         $sql = "SELECT username, email, password FROM users";
         $statement = $this->database_connection->prepare($sql);
         $statement->execute();
-        echo json_encode($statement->fetchAll());
+        return $statement->fetchAll();
     }
 
     function GetUser($user_id) {
@@ -90,7 +89,7 @@ class User {
         $this->password = $row['password'];
         $this->user_id = $row['id'];
         
-        print_r(json_encode($row));
+        return $row;
 
     }
 
