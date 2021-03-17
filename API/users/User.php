@@ -93,6 +93,88 @@ class User {
 
     }
 
+    function DeleteUser($user_id) {
+        $sql = "DELETE FROM users WHERE id=:user_id_IN";
+        $statement = $this->database_connection->prepare($sql);
+        $statement->bindParam(":user_id_IN", $user_id);
+        $statement->execute();
 
+        $message = new stdClass();
+        if($statement->rowCount() > 0) {
+            $message->text = "User with id $user_id removed!";
+            return $message;
+        }
 
+        $message->text = "No user with id=$user_id was found!";
+        return $message;
+
+    }
+
+    function UpdateUser($id, $username = "", $password = "", $email = "", $role = "") {
+        $error = new stdClass();
+
+        if(!empty($username)) {
+            $error->message = $this->UpdateUsername($id, $username);
+        }
+        if(!empty($password)) {
+            $error->message = $this->UpdatePassword($id, $password);
+        }
+        if(!empty($email)) {
+            $error->message = $this->UpdateEmail($id, $email);
+        }
+        if(!empty($role)) {
+            $error->message = $this->UpdateRole($id, $role);
+        }
+        
+       return $error;
+
+    }
+
+    function UpdateUsername($id, $username) {
+        $sql = "UPDATE users SET username=:username_IN WHERE id=:user_id_IN";
+        $statement = $this->database_connection->prepare($sql);
+        $statement->bindParam(":username_IN", $username);
+        $statement->bindParam(":user_id_IN", $id);
+        $statement->execute();
+
+       
+        if($statement->rowCount() < 1) {
+            return "No user with id=$id was found!";
+            
+        }
+    }
+    function UpdatePassword($id, $password) {
+        $sql = "UPDATE users SET password=:password_IN WHERE id=:user_id_IN";
+        $statement = $this->database_connection->prepare($sql);
+        $statement->bindParam(":password_IN", $password);
+        $statement->bindParam(":user_id_IN", $id);
+        $statement->execute();
+
+        if($statement->rowCount() < 1) {
+            return "No user with id=$id was found!";
+        }
+    }
+    function UpdateEmail($id, $email) {
+        $sql = "UPDATE users SET email=:email_IN WHERE id=:user_id_IN";
+        $statement = $this->database_connection->prepare($sql);
+        $statement->bindParam(":email_IN", $email);
+        $statement->bindParam(":user_id_IN", $id);
+        $statement->execute();
+
+        if($statement->rowCount() < 1) {
+            return "No user with id=$id was found!";
+        }
+    }
+    function UpdateRole($id, $role) {
+        $sql = "UPDATE users SET role=:role_IN WHERE id=:user_id_IN";
+        $statement = $this->database_connection->prepare($sql);
+        $statement->bindParam(":role_IN", $role);
+        $statement->bindParam(":user_id_IN", $id);
+        $statement->execute();
+
+        if($statement->rowCount() < 1) {
+            return "No user with id=$id was found!";
+        }
+    }
+   
 }
